@@ -19,8 +19,6 @@ Install QuickBooks PHP Client:
 
 The package uses the auto registration feature
 
-**NOTE:** This is not working right now, so follow the steps below for registering the Service Providers
-
 ### For < Laravel 5.5, you have to register the Service Providers
 
 1. Add the provider to ```config/app.php```
