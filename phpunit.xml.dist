@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This is the "dist(ribution)" phpunit.xml.dist file.  It sets the defaults that are then over written by any files in
+    phpunit.xml, which is then over wrote by flags passed in via the command line.  The plan is that this file is to be
+    used by ci to do the full suit of tests, and a developer can copy this file to phpunit.xml to trim down some of the
+    options.
+-->
+
+<phpunit addUncoveredFilesFromWhitelist="true"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         processUncoveredFilesFromWhitelist="true"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         verbose="true">
+
+    <testsuites>
+        <testsuite name="Spinen's Laravel QuickBooks Client">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <!-- <env name="VARIABLE" value="value"/> -->
+    </php>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/Http/Exceptions</directory>
+                <directory>./src/Providers</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html"
+             target="./build/coverage"
+             title="Spinen's Laravel QuickBooks Client"
+             charset="UTF-8"
+             yui="true"
+             highlight="true"
+             lowUpperBound="35"
+             highLowerBound="70"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="json" target="./build/logs/logfile.json"/>
+        <log type="junit" target="./build/logs/junit.xml"
+             logIncompleteSkipped="true"/>
+    </logging>
+</phpunit>
