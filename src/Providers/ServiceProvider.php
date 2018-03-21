@@ -4,6 +4,7 @@ namespace Spinen\QuickBooks\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Spinen\QuickBooks\Http\Middleware\Filter;
 
 /**
  * Class ServiceProvider
@@ -35,7 +36,7 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/quickbooks.php', 'quickbooks');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/quickbooks.php', 'quickbooks');
     }
 
     /**
@@ -58,18 +59,18 @@ class ServiceProvider extends LaravelServiceProvider
     protected function registerPublishes()
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../config/quickbooks.php' => config_path('quickbooks.php'),
+                __DIR__ . '/../../config/quickbooks.php' => config_path('quickbooks.php'),
             ], 'quickbooks-config');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations' => database_path('migrations'),
+                __DIR__ . '/../../database/migrations' => database_path('migrations'),
             ], 'quickbooks-migrations');
 
             $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/quickbooks'),
+                __DIR__ . '/../../resources/views' => base_path('resources/views/vendor/quickbooks'),
             ], 'quickbooks-views');
         }
     }
@@ -84,7 +85,7 @@ class ServiceProvider extends LaravelServiceProvider
         $this->app->router->prefix($config['prefix'])
                           ->as('quickbooks.')
                           ->middleware($config['middleware']['default'])
-                          ->namespace('Spinen\QuickBooks')
+                          ->namespace('Spinen\QuickBooks\Http\Controllers')
                           ->group(function (Router $router) use ($config) {
                               $router->get($config['paths']['connect'], 'Controller@connect')
                                      ->middleware($config['middleware']['authenticated'])
@@ -104,6 +105,6 @@ class ServiceProvider extends LaravelServiceProvider
      */
     protected function registerViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'quickbooks');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'quickbooks');
     }
 }

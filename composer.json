@@ -1,6 +1,6 @@
 {
     "name": "spinen/laravel-quickbooks-client",
-    "description": "SPINEN's PHP Client for QuickBooks.",
+    "description": "SPINEN's Laravel Client for QuickBooks.",
     "keywords": [
         "quickbooks",
         "client",
@@ -20,8 +20,6 @@
         "illuminate/database": "^5.5",
         "illuminate/http": "^5.5",
         "illuminate/routing": "^5.5",
-        "illuminate/support": "~5.5",
-        "illuminate/view": "^5.5",
         "nesbot/carbon": "~1.20",
         "quickbooks/v3-php-sdk": "^4.0"
     },
