@@ -4,6 +4,7 @@ namespace Spinen\QuickBooks\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Spinen\QuickBooks\Http\Middleware\Filter;
 
 /**
  * Class ServiceProvider
