@@ -4,6 +4,7 @@ namespace Spinen\QuickBooks;
 
 use Exception;
 use QuickBooksOnline\API\DataService\DataService;
+use QuickBooksOnline\API\ReportService\ReportService;
 
 /**
  * Class Client
@@ -25,6 +26,13 @@ class Client
      * @var DataService
      */
     protected $data_service;
+
+    /**
+     * The ReportService instance
+     *
+     * @var ReportService
+     */
+    protected $report_service;
 
     /**
      * The Token instance
@@ -137,6 +145,25 @@ class Client
         }
 
         return $this->data_service;
+    }
+
+    /**
+     * Getter for the ReportService
+     *
+     * Makes sure that it is setup & ready to be used.
+     *
+     * @return ReportService
+     * @throws \QuickBooksOnline\API\Exception\SdkException
+     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     */
+    public function getReportService()
+    {
+        if (!isset($this->report_service)) {
+            $this->report_service = new ReportService($this->getDataService()
+                                                           ->getServiceContext());
+        }
+
+        return $this->report_service;
     }
 
     /**
