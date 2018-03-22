@@ -160,6 +160,14 @@ class ClientTest extends TestCase
     /**
      * @test
      */
+    public function it_returns_a_report_service_using_the_data_service()
+    {
+        $this->markTestSkipped('Once we figure out how to test around the static DataService::Configure');
+    }
+
+    /**
+     * @test
+     */
     public function it_has_logging_off_by_default()
     {
         $this->token_mock->shouldReceive('getAttribute')
