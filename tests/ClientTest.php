@@ -209,8 +209,8 @@ class ClientTest extends TestCase
         $this->assertTrue(filter_var($this->client->getDataService()
                                                   ->getServiceContext()->IppConfiguration->Logger->RequestLog->EnableRequestResponseLogging, FILTER_VALIDATE_BOOLEAN));
 
-        $this->assertEquals('/some/valid/path/quickbooks.log', $this->client->getDataService()
-                                                                            ->getServiceContext()->IppConfiguration->Logger->RequestLog->ServiceRequestLoggingLocation);
+        $this->assertEquals('/some/valid/path', $this->client->getDataService()
+                                                             ->getServiceContext()->IppConfiguration->Logger->RequestLog->ServiceRequestLoggingLocation);
     }
 
     /**
