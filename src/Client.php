@@ -76,7 +76,7 @@ class Client
         // In case any of the keys are not in the configs, just disable logging
         try {
             if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
-                $this->data_service->setLogLocation($this->configs['logging']['location'] . '/quickbooks.log');
+                $this->data_service->setLogLocation($this->configs['logging']['location']);
 
                 return;
             }
