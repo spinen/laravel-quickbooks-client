@@ -21,7 +21,7 @@
         "illuminate/http": "^5.5",
         "illuminate/routing": "^5.5",
         "nesbot/carbon": "~1.20",
-        "quickbooks/v3-php-sdk": "^4.0"
+        "quickbooks/v3-php-sdk": "^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1",
