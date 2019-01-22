@@ -4,6 +4,7 @@ namespace Spinen\QuickBooks;
 
 use Mockery;
 use Mockery\Mock;
+use QuickBooksOnline\API\DataService\DataService;
 
 class ClientTest extends TestCase
 {
@@ -90,7 +91,8 @@ class ClientTest extends TestCase
                          ->with('hasValidRefreshToken')
                          ->andReturnFalse();
 
-        $this->assertEquals($this->client->getDataService(), $this->client->getDataService());
+        // TODO: Find out if this is the actual goal of this test, to make sure a DataService is received
+        $this->assertEquals(DataService::class, get_class($this->client->getDataService()));
     }
 
     /**

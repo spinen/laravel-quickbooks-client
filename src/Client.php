@@ -49,7 +49,16 @@ class Client
      */
     public function __construct(array $configs, Token $token)
     {
-        $this->configs = $configs;
+        // TODO: Make sure we should be setting this through array_merge
+        $this->configs = array_merge(
+            [
+                'logging' => [
+                    'enabled'  => false,
+                    'location' => '/some/valid/path',
+                ],
+            ],
+            $configs
+        );
 
         $this->setToken($token);
     }
@@ -75,6 +84,7 @@ class Client
     {
         // In case any of the keys are not in the configs, just disable logging
         try {
+//            var_dump($this->configs['logging']['enabled']);
             if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
                 $this->data_service->setLogLocation($this->configs['logging']['location']);
 
@@ -159,8 +169,10 @@ class Client
     public function getReportService()
     {
         if (!isset($this->report_service)) {
-            $this->report_service = new ReportService($this->getDataService()
-                                                           ->getServiceContext());
+            $this->report_service = new ReportService(
+                $this->getDataService()
+                     ->getServiceContext()
+            );
         }
 
         return $this->report_service;
@@ -212,20 +224,30 @@ class Client
         // Have good access & refresh, so allow app to run
         if ($this->hasValidAccessToken()) {
             // Pull in the configs from the token into needed keys from the configs
-            return DataService::Configure(array_merge(array_intersect_key($this->parseDataConfigs(), $existing_keys), [
-                'accessTokenKey'  => $this->token->access_token,
-                'QBORealmID'      => $this->token->realm_id,
-                'refreshTokenKey' => $this->token->refresh_token,
-            ]));
+            return DataService::Configure(
+                array_merge(
+                    array_intersect_key($this->parseDataConfigs(), $existing_keys),
+                    [
+                        'accessTokenKey'  => $this->token->access_token,
+                        'QBORealmID'      => $this->token->realm_id,
+                        'refreshTokenKey' => $this->token->refresh_token,
+                    ]
+                )
+            );
         }
 
         // Have refresh, so update access & allow app to run
         if ($this->hasValidRefreshToken()) {
             // Pull in the configs from the token into needed keys from the configs
-            $data_service = DataService::Configure(array_merge(array_intersect_key($this->parseDataConfigs(), $existing_keys), [
-                'QBORealmID'      => $this->token->realm_id,
-                'refreshTokenKey' => $this->token->refresh_token,
-            ]));
+            $data_service = DataService::Configure(
+                array_merge(
+                    array_intersect_key($this->parseDataConfigs(), $existing_keys),
+                    [
+                        'QBORealmID'      => $this->token->realm_id,
+                        'refreshTokenKey' => $this->token->refresh_token,
+                    ]
+                )
+            );
 
             $oauth_token = $data_service->getOAuth2LoginHelper()
                                         ->refreshToken();
