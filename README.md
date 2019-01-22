@@ -1,7 +1,7 @@
 # SPINEN's Laravel QuickBooks Client
 
 [![Latest Stable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/stable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
-[![Total Downloads](https://poser.pugx.org/spinen/laravel-quickbooks-client/downloads)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![Latest Unstable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/unstable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![Dependency Status](https://gemnasium.com/spinen/laravel-quickbooks-client.svg)](https://gemnasium.com/github.com/spinen/laravel-quickbooks-client)[![License](https://poser.pugx.org/spinen/laravel-quickbooks-client/license)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
+[![Total Downloads](https://poser.pugx.org/spinen/laravel-quickbooks-client/downloads)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![Latest Unstable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/unstable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![License](https://poser.pugx.org/spinen/laravel-quickbooks-client/license)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
 
 PHP client wrapping the [QuickBooks PHP SDK](https://github.com/intuit/QuickBooks-V3-PHP-SDK).
 
