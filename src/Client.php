@@ -78,22 +78,20 @@ class Client
     }
 
     /**
+     * Configure the logging per config/quickbooks.php
      *
+     * @return DataService
      */
     public function configureLogging()
     {
         // In case any of the keys are not in the configs, just disable logging
-        try {
-//            var_dump($this->configs['logging']['enabled']);
-            if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
-                $this->data_service->setLogLocation($this->configs['logging']['location']);
+        if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
+            $this->data_service->setLogLocation($this->configs['logging']['location']);
 
-                return;
-            }
-        } catch (Exception $e) {
+            return $this->data_service->enableLog();
         }
 
-        $this->data_service->disableLog();
+        return $this->data_service->disableLog();
     }
 
     /**
