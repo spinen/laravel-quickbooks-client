@@ -49,16 +49,7 @@ class Client
      */
     public function __construct(array $configs, Token $token)
     {
-        // TODO: Make sure we should be setting this through array_merge
-        $this->configs = array_merge(
-            [
-                'logging' => [
-                    'enabled'  => false,
-                    'location' => '/some/valid/path',
-                ],
-            ],
-            $configs
-        );
+        $this->configs = $configs;
 
         $this->setToken($token);
     }
@@ -85,10 +76,13 @@ class Client
     public function configureLogging()
     {
         // In case any of the keys are not in the configs, just disable logging
-        if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
-            $this->data_service->setLogLocation($this->configs['logging']['location']);
+        try {
+            if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
+                $this->data_service->setLogLocation($this->configs['logging']['location']);
 
-            return $this->data_service->enableLog();
+                return $this->data_service->enableLog();
+            }
+        } catch (Exception $e) {
         }
 
         return $this->data_service->disableLog();
