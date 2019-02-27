@@ -15,21 +15,7 @@ Install QuickBooks PHP Client:
     $ composer require spinen/laravel-quickbooks-client
 ```
 
-### For >= Laravel 5.5, you are done with the Install
-
 The package uses the auto registration feature
-
-### For < Laravel 5.5, you have to register the Service Providers
-
-1. Add the provider to ```config/app.php```
-
-```php
-    'providers' => [
-        # other providers omitted
-        Spinen\QuickBooks\Providers\ClientServiceProvider::class,
-        Spinen\QuickBooks\Providers\ServiceProvider::class,
-    ],
-```
 
 ## Configuration
 
