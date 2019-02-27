@@ -5,6 +5,7 @@ namespace Spinen\QuickBooks;
 use Mockery;
 use Mockery\Mock;
 use QuickBooksOnline\API\DataService\DataService;
+use QuickBooksOnline\API\Exception\ServiceException;
 
 class ClientTest extends TestCase
 {
@@ -23,7 +24,7 @@ class ClientTest extends TestCase
      */
     protected $token_mock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configs = [
             'data_service' => [
@@ -130,10 +131,11 @@ class ClientTest extends TestCase
 
     /**
      * @test
-     * @expectedException \QuickBooksOnline\API\Exception\ServiceException
      */
     public function it_returns_a_data_service_with_refreshed_token_when_acccess_token_expired_but_refresh_token_valid()
     {
+        $this->expectException(ServiceException::class);
+
         $this->token_mock->shouldReceive('getAttribute')
                          ->once()
                          ->with('hasValidAccessToken')
