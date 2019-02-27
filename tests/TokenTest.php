@@ -15,7 +15,7 @@ class TokenTest extends TestCase
      */
     protected $token;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->token = new TokenStub();
     }

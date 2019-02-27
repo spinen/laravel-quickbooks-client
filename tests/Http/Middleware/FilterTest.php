@@ -51,7 +51,7 @@ class FilterTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->quickbooks_mock = Mockery::mock(QuickBooks::class);
         $this->redirector_mock = Mockery::mock(Redirector::class);

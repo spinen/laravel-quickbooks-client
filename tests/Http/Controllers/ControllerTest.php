@@ -36,7 +36,7 @@ class ControllerTest extends TestCase
      */
     protected $view_mock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->data_service_mock = Mockery::mock();
         $this->quickbooks_mock = Mockery::mock(QuickBooks::class);
