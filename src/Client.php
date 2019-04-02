@@ -142,7 +142,7 @@ class Client
      */
     public function getDataService()
     {
-        if (!isset($this->data_service)) {
+        if (!$this->hasValidAccessToken() || !isset($this->data_service)) {
             $this->data_service = $this->makeDataService();
 
             $this->configureLogging();
@@ -162,7 +162,7 @@ class Client
      */
     public function getReportService()
     {
-        if (!isset($this->report_service)) {
+        if (!$this->hasValidAccessToken() || !isset($this->report_service)) {
             $this->report_service = new ReportService(
                 $this->getDataService()
                      ->getServiceContext()
