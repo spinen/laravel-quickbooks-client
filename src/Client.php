@@ -4,6 +4,8 @@ namespace Spinen\QuickBooks;
 
 use Exception;
 use QuickBooksOnline\API\DataService\DataService;
+use QuickBooksOnline\API\Exception\SdkException;
+use QuickBooksOnline\API\Exception\ServiceException;
 use QuickBooksOnline\API\ReportService\ReportService;
 
 /**
@@ -58,8 +60,8 @@ class Client
      * Build URI to request authorization
      *
      * @return String
-     * @throws \QuickBooksOnline\API\Exception\SdkException
-     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     * @throws SdkException
+     * @throws ServiceException
      */
     public function authorizationUri()
     {
@@ -111,8 +113,8 @@ class Client
      * @param integer $realm_id
      *
      * @return $this
-     * @throws \QuickBooksOnline\API\Exception\SdkException
-     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     * @throws SdkException
+     * @throws ServiceException
      */
     public function exchangeCodeForToken($code, $realm_id)
     {
@@ -135,8 +137,8 @@ class Client
      * Makes sure that it is setup & ready to be used.
      *
      * @return DataService
-     * @throws \QuickBooksOnline\API\Exception\SdkException
-     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     * @throws SdkException
+     * @throws ServiceException
      */
     public function getDataService()
     {
@@ -155,8 +157,8 @@ class Client
      * Makes sure that it is setup & ready to be used.
      *
      * @return ReportService
-     * @throws \QuickBooksOnline\API\Exception\SdkException
-     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     * @throws SdkException
+     * @throws ServiceException
      */
     public function getReportService()
     {
@@ -200,8 +202,8 @@ class Client
      *      3) No existing token, so need to link account
      *
      * @return DataService
-     * @throws \QuickBooksOnline\API\Exception\SdkException
-     * @throws \QuickBooksOnline\API\Exception\ServiceException
+     * @throws SdkException
+     * @throws ServiceException
      */
     protected function makeDataService()
     {
