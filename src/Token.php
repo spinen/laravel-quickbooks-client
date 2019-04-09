@@ -2,14 +2,28 @@
 
 namespace Spinen\QuickBooks;
 
+use App\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use QuickBooksOnline\API\Core\OAuth\OAuth2\OAuth2AccessToken;
+use QuickBooksOnline\API\Exception\SdkException;
 
 /**
  * Class Token
  *
  * @package Spinen\QuickBooks
+ *
+ * @property boolean $hasValidAccessToken Is the access token valid
+ * @property boolean $hasValidRefreshToken Is the refresh token valid
+ * @property Carbon $access_token_expires_at Timestamp that the access token expires
+ * @property Carbon $refresh_token_expires_at Timestamp that the refresh token expires
+ * @property integer $user_id Id of the related User
+ * @property string $access_token The access token
+ * @property string $realm_id Realm Id from the OAuth token
+ * @property string $refresh_token The refresh token
+ * @property User $user
  */
 class Token extends Model
 {
@@ -78,7 +92,7 @@ class Token extends Model
      * @param OAuth2AccessToken $oauth_token
      *
      * @return Token
-     * @throws \QuickBooksOnline\API\Exception\SdkException
+     * @throws SdkException
      */
     public function parseOauthToken(OAuth2AccessToken $oauth_token)
     {
@@ -98,7 +112,7 @@ class Token extends Model
      * When a token is deleted, we still need a token for the client for the user.
      *
      * @return Token
-     * @throws \Exception
+     * @throws Exception
      */
     public function remove()
     {
@@ -113,7 +127,7 @@ class Token extends Model
     /**
      * Belongs to user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {

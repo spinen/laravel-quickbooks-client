@@ -39,7 +39,7 @@ class ClientServiceProvider extends LaravelServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Client::class, function (Application $app) {
+        $this->app->bind(Client::class, function (Application $app) {
             $token = ($app->auth->user()->quickBooksToken)
                 ? : $app->auth->user()
                               ->quickBooksToken()

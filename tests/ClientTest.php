@@ -64,7 +64,7 @@ class ClientTest extends TestCase
     public function it_returns_a_data_service_configured_to_request_oauth_token_when_token_is_empty()
     {
         $this->token_mock->shouldReceive('getAttribute')
-                         ->once()
+                         ->twice()
                          ->with('hasValidAccessToken')
                          ->andReturnFalse();
 
@@ -85,7 +85,7 @@ class ClientTest extends TestCase
     public function it_caches_the_data_service_once_it_is_made()
     {
         $this->token_mock->shouldReceive('getAttribute')
-                         ->once()
+                         ->twice()
                          ->with('hasValidAccessToken')
                          ->andReturnFalse();
 
@@ -104,7 +104,7 @@ class ClientTest extends TestCase
     public function it_returns_a_data_service_with_oauth_token_when_valid_access_token_exist()
     {
         $this->token_mock->shouldReceive('getAttribute')
-                         ->once()
+                         ->twice()
                          ->with('hasValidAccessToken')
                          ->andReturnTrue();
 
@@ -137,7 +137,7 @@ class ClientTest extends TestCase
         $this->expectException(ServiceException::class);
 
         $this->token_mock->shouldReceive('getAttribute')
-                         ->once()
+                         ->twice()
                          ->with('hasValidAccessToken')
                          ->andReturnFalse();
 
