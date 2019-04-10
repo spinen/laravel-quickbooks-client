@@ -65,7 +65,7 @@ class Client
      */
     public function authorizationUri()
     {
-        return $this->getDataservice()
+        return $this->getDataService()
                     ->getOAuth2LoginHelper()
                     ->getAuthorizationCodeURL();
     }
