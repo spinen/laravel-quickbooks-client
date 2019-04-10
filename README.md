@@ -1,21 +1,30 @@
 # SPINEN's Laravel QuickBooks Client
 
 [![Latest Stable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/stable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
-[![Total Downloads](https://poser.pugx.org/spinen/laravel-quickbooks-client/downloads)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![Latest Unstable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/unstable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)[![License](https://poser.pugx.org/spinen/laravel-quickbooks-client/license)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
+[![Latest Unstable Version](https://poser.pugx.org/spinen/laravel-quickbooks-client/v/unstable)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
+[![Total Downloads](https://poser.pugx.org/spinen/laravel-quickbooks-client/downloads)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
+[![License](https://poser.pugx.org/spinen/laravel-quickbooks-client/license)](https://packagist.org/packages/spinen/laravel-quickbooks-client)
 
 PHP client wrapping the [QuickBooks PHP SDK](https://github.com/intuit/QuickBooks-V3-PHP-SDK).
 
-We solely use [Laravel](http://www.laravel.com) for our applications, so this package is wrote with Laravel in mind. If there is a request from the community to spilt this package into 2 parts to allow it to be used outside of Laravel, then we will consider the work.
+We solely use [Laravel](https://www.laravel.com) for our applications, so this package is written with Laravel in mind. If there is a request from the community to split this package into 2 parts to allow it to be used outside of Laravel, then we will consider doing that work.
+
+## Build Status
+
+| Branch | Status | Coverage | Code Quality |
+| ------ | :----: | :------: | :----------: |
+| Develop | [![Build Status](https://travis-ci.org/spinen/laravel-quickbooks-client.svg?branch=develop)](https://travis-ci.org/spinen/laravel-quickbooks-client) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) |
+| Master | [![Build Status](https://travis-ci.org/spinen/laravel-quickbooks-client.svg?branch=master)](https://travis-ci.org/spinen/laravel-quickbooks-client) | [![Code Coverage](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=develop) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/spinen/laravel-quickbooks-client/?branch=master) |
 
 ## Installation
 
 Install QuickBooks PHP Client:
 
 ```bash
-    $ composer require spinen/laravel-quickbooks-client
+$ composer require spinen/laravel-quickbooks-client
 ```
 
-The package uses the auto registration feature
+The package uses the [auto registration feature](https://laravel.com/docs/5.8/packages#package-discovery) of Laravel 5.
 
 ## Configuration
 
@@ -38,13 +47,13 @@ The package uses the auto registration feature
 3. _[Optional]_ Publish configs & views
 
     #### Config
-    A configuration file named ```quickbooks.php```can be published to ```config/``` by running...
+    A configuration file named ```quickbooks.php``` can be published to ```config/``` by running...
     
     ```bash
     php artisan vendor:publish --tag=quickbooks-config
     ```
     
-    #### View
+    #### Views
     View files can be published by running...
     
     ```bash
@@ -53,7 +62,7 @@ The package uses the auto registration feature
 
 ## Usage
 
-Here is an example of getting the company information from QuickBooks...
+Here is an example of getting the company information from QuickBooks:
 
 ```php
 php artisan tinker
@@ -78,7 +87,7 @@ You can call any of the resources as documented [in the SDK](https://intuit.gith
 
 ## Middleware
 
-If you have routes that will be dependent on the user's account having a usable QuickBooks OAuth token, there is an included middleware ```Spinen\QuickBooks\Laravel\Filter``` that gets registered as ```quickbooks``` that will ensure the account is linked and redirect them to the connect route if needed.
+If you have routes that will be dependent on the user's account having a usable QuickBooks OAuth token, there is an included middleware ```Spinen\QuickBooks\Laravel\Filter``` that gets registered as ```quickbooks``` that will ensure the account is linked and redirect them to the `connect` route if needed.
 
 Here is an example route definition:
 
@@ -86,4 +95,3 @@ Here is an example route definition:
 Route::view('some/route/needing/quickbooks/token/before/using', 'some.view')
      ->middleware('quickbooks');
 ```
-
