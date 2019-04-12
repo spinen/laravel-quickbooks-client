@@ -9,6 +9,11 @@ use Mockery\Mock;
 use Spinen\QuickBooks\Client as QuickBooks;
 use Spinen\QuickBooks\TestCase;
 
+/**
+ * Class ControllerTest
+ *
+ * @package Spinen\QuickBooks\Http\Controllers
+ */
 class ControllerTest extends TestCase
 {
     /**

@@ -8,6 +8,11 @@ use QuickBooksOnline\API\Core\OAuth\OAuth2\OAuth2AccessToken;
 use Spinen\QuickBooks\Stubs\TokenStub;
 use Spinen\QuickBooks\Stubs\User;
 
+/**
+ * Class TokenTest
+ *
+ * @package Spinen\QuickBooks
+ */
 class TokenTest extends TestCase
 {
     /**

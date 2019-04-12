@@ -4,6 +4,13 @@ namespace Spinen\QuickBooks\Stubs;
 
 use Spinen\QuickBooks\Token;
 
+/**
+ * Class TokenStub
+ *
+ * Stub for a Laravel Token model
+ *
+ * @package Spinen\QuickBooks\Stubs
+ */
 class TokenStub extends Token
 {
     // Put public properties on this stub to keep the Model from tyring to get them from db
