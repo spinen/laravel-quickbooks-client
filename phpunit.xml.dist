@@ -40,11 +40,15 @@
 
     <logging>
         <log type="coverage-html"
-             target="./build/coverage"
+             target="./build/phpunit/coverage"
              lowUpperBound="35"
              highLowerBound="70"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="json" target="./build/logs/logfile.json"/>
-        <log type="junit" target="./build/logs/junit.xml"/>
+        <log type="coverage-text"
+             target="php://stdout"
+             showOnlySummary="true"
+             showUncoveredFiles="false"/>
+        <log type="coverage-clover" target="build/phpunit/logs/clover.xml"/>
+        <log type="json" target="./build/phpunit/logs/logfile.json"/>
+        <log type="junit" target="./build/phpunit/logs/junit.xml"/>
     </logging>
 </phpunit>

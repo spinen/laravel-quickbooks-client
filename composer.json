@@ -8,7 +8,6 @@
         "spinen"
     ],
     "license": "MIT",
-    "type": "library",
     "authors": [
         {
             "name": "Jimmy Puckett",
@@ -17,17 +16,17 @@
     ],
     "require": {
         "php": ">=7.2",
-        "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*",
-        "illuminate/http": "5.5.*|5.6.*|5.7.*|5.8.*",
-        "illuminate/routing": "5.5.*|5.6.*|5.7.*|5.8.*",
+        "illuminate/database": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
+        "illuminate/http": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
+        "illuminate/routing": "5.5.*|5.6.*|5.7.*|5.8.*|6.0.*",
         "nesbot/carbon": "^1.26.3 || ^2.0",
         "quickbooks/v3-php-sdk": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "^1",
         "phpunit/phpunit": "~7.0.1|~8.0",
-        "psy/psysh": "^0.5.1",
-        "symfony/thanks": "^1.0"
+        "psy/psysh": "^0.9.9",
+        "symfony/thanks": "^1.1"
     },
     "autoload": {
         "psr-4": {

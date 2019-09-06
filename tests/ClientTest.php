@@ -7,6 +7,11 @@ use Mockery\Mock;
 use QuickBooksOnline\API\DataService\DataService;
 use QuickBooksOnline\API\Exception\ServiceException;
 
+/**
+ * Class ClientTest
+ *
+ * @package Spinen\QuickBooks
+ */
 class ClientTest extends TestCase
 {
     /**
