@@ -15,7 +15,7 @@ class CreateQuickBooksTokensTable extends Migration
     {
         Schema::create('quickbooks_tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('owner_id');
             $table->unsignedBigInteger('realm_id');
             $table->longtext('access_token');
             $table->datetime('access_token_expires_at');
@@ -23,11 +23,11 @@ class CreateQuickBooksTokensTable extends Migration
             $table->datetime('refresh_token_expires_at');
 
             $table->timestamps();
-
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+// todo deal with this?
+//            $table->foreign('user_id')
+//                  ->references('id')
+//                  ->on('users')
+//                  ->onDelete('cascade');
         });
     }
 

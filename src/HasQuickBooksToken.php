@@ -13,4 +13,13 @@ trait HasQuickBooksToken
     {
         return $this->hasOne(Token::class);
     }
+
+    public function getClient(): Client
+    {
+        if (!$this->quickBooksToken) {
+            $token = $this->quickBooksToken()->make();
+        }
+
+        return new Client(config('quickbooks'), $token ?? $this->quickBooksToken);
+    }
 }

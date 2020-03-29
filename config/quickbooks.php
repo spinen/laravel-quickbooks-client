@@ -85,9 +85,9 @@ return [
     |
     */
 
-    'user' => [
+    'eloquent' => [
         'keys'  => [
-            'foreign' => 'user_id',
+            'foreign' => 'owner_id',
             'owner'   => 'id',
         ],
         'model' => User::class,
