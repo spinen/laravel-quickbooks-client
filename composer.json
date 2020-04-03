@@ -12,6 +12,10 @@
         {
             "name": "Jimmy Puckett",
             "email": "jimmy.puckett@spinen.com"
+        },
+        {
+            "name": "Stephen Finney",
+            "email": "stephen.finney@spinen.com"
         }
     ],
     "require": {
