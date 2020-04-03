@@ -2,7 +2,6 @@
 
 namespace Spinen\QuickBooks\Http\Controllers;
 
-use Alert;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Http\Request;
@@ -85,10 +84,7 @@ class Controller extends LaravelController
         // TODO: Deal with exceptions
         $quickbooks->exchangeCodeForToken($request->get('code'), $request->get('realmId'));
 
-        // TODO: Figure out where to put this in session & remove Facade
-        Alert::success('Connected to QuickBooks')
-             ->flash();
-
-        return $redirector->intended($url_generator->route('quickbooks.connect'));
+        return $redirector->intended($url_generator->route('quickbooks.connect'))
+                          ->with('success', 'Connected to QuickBooks');
     }
 }
