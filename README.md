@@ -28,7 +28,7 @@ The package uses the [auto registration feature](https://laravel.com/docs/5.8/pa
 
 ## Configuration
 
-1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship. To do this implimnet the following:
+1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship. To do this implement the following:
 
 Add ```use Spinen\QuickBooks\HasQuickBooksToken;``` to your service container at the top of User.php
 also add the trait within the class. For example:
