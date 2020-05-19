@@ -28,7 +28,16 @@ The package uses the [auto registration feature](https://laravel.com/docs/5.8/pa
 
 ## Configuration
 
-1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\Laravel\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship.  **NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
+1. You will need a ```quickBooksToken``` relationship on your ```User``` model.  There is a trait named ```Spinen\QuickBooks\HasQuickBooksToken```, which you can include on your ```User``` model, which will setup the relationship. To do this implimnet the following:
+
+Add ```use Spinen\QuickBooks\HasQuickBooksToken;``` to your service container at the top of User.php
+also add the trait within the class. For example:
+
+```class User extends Authenticatable
+{
+    use Notifiable, HasQuickBooksToken;```
+    
+**NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
 
 2. Add the appropriate values to your ```.env```
 
