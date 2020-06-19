@@ -33,9 +33,11 @@ The package uses the [auto registration feature](https://laravel.com/docs/5.8/pa
 Add ```use Spinen\QuickBooks\HasQuickBooksToken;``` to your service container at the top of User.php
 and also add the trait within the class. For example:
 
-```class User extends Authenticatable
+```php
+class User extends Authenticatable
 {
-    use Notifiable, HasQuickBooksToken;```
+    use Notifiable, HasQuickBooksToken;
+```
     
 **NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
 
