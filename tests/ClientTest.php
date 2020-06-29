@@ -137,7 +137,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_returns_a_data_service_with_refreshed_token_when_acccess_token_expired_but_refresh_token_valid()
+    public function it_returns_a_data_service_with_refreshed_token_when_access_token_expired_but_refresh_token_valid()
     {
         $this->expectException(ServiceException::class);
 
