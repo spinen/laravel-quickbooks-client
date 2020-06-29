@@ -57,7 +57,7 @@ class Controller extends LaravelController
     {
         $quickbooks->deleteToken();
 
-        $request->session()->flash('success', 'Disconnected to QuickBooks');
+        $request->session()->flash('success', 'Disconnected from QuickBooks');
 
         return $redirector->back();
     }
