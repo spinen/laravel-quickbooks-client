@@ -53,13 +53,11 @@ class Controller extends LaravelController
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Exception
      */
-    public function disconnect(Redirector $redirector, QuickBooks $quickbooks)
+    public function disconnect(Redirector $redirector, Request $request, QuickBooks $quickbooks)
     {
         $quickbooks->deleteToken();
 
-        // TODO: Figure out where to put this in session & remove Facade
-        Alert::success('Disconnected from QuickBooks')
-             ->flash();
+        $request->session()->flash('success', 'Disconnected to QuickBooks');
 
         return $redirector->back();
     }
@@ -84,7 +82,8 @@ class Controller extends LaravelController
         // TODO: Deal with exceptions
         $quickbooks->exchangeCodeForToken($request->get('code'), $request->get('realmId'));
 
-        return $redirector->intended($url_generator->route('quickbooks.connect'))
-                          ->with('success', 'Connected to QuickBooks');
+        $request->session()->flash('success', 'Connected to QuickBooks');
+
+        return $redirector->intended($url_generator->route('quickbooks.connect'));
     }
 }
