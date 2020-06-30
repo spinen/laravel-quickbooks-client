@@ -2,8 +2,13 @@
 
 namespace Spinen\QuickBooks\Http\Controllers;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
 use Mockery;
 use Mockery\Mock;
 use Spinen\QuickBooks\Client as QuickBooks;
@@ -34,6 +39,21 @@ class ControllerTest extends TestCase
     /**
      * @var Mock
      */
+    protected $redirector_mock;
+
+    /**
+     * @var Mock
+     */
+    protected $request_mock;
+
+    /**
+     * @var Mock
+     */
+    protected $session_mock;
+
+    /**
+     * @var Mock
+     */
     protected $view_factory_mock;
 
     /**
@@ -45,6 +65,9 @@ class ControllerTest extends TestCase
     {
         $this->data_service_mock = Mockery::mock();
         $this->quickbooks_mock = Mockery::mock(QuickBooks::class);
+        $this->redirector_mock = Mockery::mock(Redirector::class);
+        $this->request_mock = Mockery::mock(Request::class);
+        $this->session_mock = Mockery::mock(Store::class);
         $this->view_factory_mock = Mockery::mock(ViewFactory::class);
         $this->view_mock = Mockery::mock(View::class);
 
@@ -128,5 +151,79 @@ class ControllerTest extends TestCase
                         ->andReturnSelf();
 
         $this->controller->connect($this->quickbooks_mock, $this->view_factory_mock);
+    }
+
+    /**
+     * @test
+     */
+    public function it_disconnects_from_quickbooks_when_requested()
+    {
+        $this->request_mock->shouldReceive('session')
+                           ->once()
+                           ->andReturn($this->session_mock);
+
+        $this->session_mock->shouldReceive('flash')
+                           ->once()
+                           ->withAnyArgs();
+
+        $this->redirector_mock->shouldReceive('back')
+                              ->once()
+                              ->andReturn(new RedirectResponse('/test', 302));
+
+        $this->quickbooks_mock->shouldReceive('deleteToken')
+                              ->once()
+                              ->withNoArgs();
+
+        $result = $this->controller->disconnect($this->redirector_mock, $this->request_mock, $this->quickbooks_mock);
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_finishes_connecting_to_quickbooks_when_given_a_valid_token_by_quickbooks()
+    {
+        $this->url_generator_mock = Mockery::mock(UrlGenerator::class);
+
+        $this->quickbooks_mock->shouldReceive('exchangeCodeForToken')
+                              ->once()
+                              ->withArgs(['code', 'realmId']);
+
+        $this->request_mock->shouldReceive('get')
+                           ->once()
+                           ->withArgs(['code'])
+                           ->andReturn('code');
+
+        $this->request_mock->shouldReceive('get')
+                           ->once()
+                           ->withArgs(['realmId'])
+                           ->andReturn('realmId');
+
+        $this->request_mock->shouldReceive('session')
+                           ->once()
+                           ->andReturn($this->session_mock);
+
+        $this->session_mock->shouldReceive('flash')
+                           ->once()
+                           ->withAnyArgs();
+
+        $this->redirector_mock->shouldReceive('intended')
+                              ->once()
+                              ->withAnyArgs()
+                              ->andReturn(new RedirectResponse('/test', 302));
+
+        $this->url_generator_mock->shouldReceive('route')
+                                 ->withArgs(['quickbooks.connect'])
+                                 ->once();
+
+        $result = $this->controller->token(
+            $this->redirector_mock,
+            $this->request_mock,
+            $this->quickbooks_mock,
+            $this->url_generator_mock
+        );
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
     }
 }
