@@ -24,7 +24,7 @@ Install QuickBooks PHP Client:
 $ composer require spinen/laravel-quickbooks-client
 ```
 
-The package uses the [auto registration feature](https://laravel.com/docs/5.8/packages#package-discovery) of Laravel 5.
+The package uses the [auto registration feature](https://laravel.com/docs/packages#package-discovery) of Laravel.
 
 ## Configuration
 

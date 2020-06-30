@@ -18,7 +18,7 @@ class CreateQuickBooksTokensTable extends Migration
             $user_id_type = DB::getSchemaBuilder()
                               ->getColumnType('users', 'id') === 'bigint' ? 'unsignedBigInteger' : 'unsignedInteger';
 
-            $table->unsignedBigInteger('id');
+            $table->bigIncrements('id');
             $table->{$user_id_type}('user_id');
             $table->unsignedBigInteger('realm_id');
             $table->longtext('access_token');

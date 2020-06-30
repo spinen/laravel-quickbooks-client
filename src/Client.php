@@ -85,6 +85,7 @@ class Client
                 return $this->data_service->enableLog();
             }
         } catch (Exception $e) {
+            // TODO: Figure out what to do with this exception
         }
 
         return $this->data_service->disableLog();
