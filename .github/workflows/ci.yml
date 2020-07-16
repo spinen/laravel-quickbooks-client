@@ -21,6 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: PHP Security Checker
+        uses: StephaneBour/actions-php-security-checker@1.0
+        with:
+          composer-lock: './composer-lock'
+
       - name: Cache dependencies
         uses: actions/cache@v1
         with:
