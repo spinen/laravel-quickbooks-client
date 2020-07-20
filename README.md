@@ -24,7 +24,7 @@ We solely use [Laravel](https://www.laravel.com) for our applications, so this p
 $ composer require spinen/laravel-quickbooks-client
 ```
 
-2. Run our migration to install the `quick_books_tokens` table:
+2. Run our migration to install the `quickbooks_tokens` table:
 
 ```bash
 $ php artisan migrate --package=spinen/laravel-quickbooks-client
