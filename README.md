@@ -18,10 +18,16 @@ We solely use [Laravel](https://www.laravel.com) for our applications, so this p
 
 ## Installation
 
-Install QuickBooks PHP Client:
+1. Install QuickBooks PHP Client:
 
 ```bash
 $ composer require spinen/laravel-quickbooks-client
+```
+
+2. Run our migration to install the `quickbooks_tokens` table:
+
+```bash
+$ php artisan migrate --package=spinen/laravel-quickbooks-client
 ```
 
 The package uses the [auto registration feature](https://laravel.com/docs/packages#package-discovery) of Laravel.
