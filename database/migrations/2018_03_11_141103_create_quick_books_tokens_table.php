@@ -42,6 +42,6 @@ class CreateQuickBooksTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quickbooks_token');
+        Schema::dropIfExists('quickbooks_tokens');
     }
 }
