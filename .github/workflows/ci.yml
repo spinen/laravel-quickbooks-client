@@ -38,6 +38,8 @@ jobs:
 
       - name: PHP Security Checker
         uses: symfonycorp/security-checker-action@v2
+        with:
+          disable-exit-code: 1
         if: ${{ matrix.stability == 'prefer-stable' }}
 
       - name: Execute tests
