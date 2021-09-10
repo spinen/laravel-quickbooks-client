@@ -37,10 +37,8 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: PHP Security Checker
-        uses: StephaneBour/actions-php-security-checker@1.0
+        uses: symfonycorp/security-checker-action@v2
         if: ${{ matrix.stability == 'prefer-stable' }}
-        with:
-          composer-lock: './composer.lock'
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover=coverage.clover --verbose
