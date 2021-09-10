@@ -81,6 +81,8 @@ class User extends Authenticatable
 
 Here is an example of getting the company information from QuickBooks:
 
+### NOTE: Before doing these commands, go to your connect route (default: /quickbooks/connect) to get a QuickBooks token for your user
+
 ```php
 php artisan tinker
 Psy Shell v0.8.17 (PHP 7.1.14 — cli) by Justin Hileman
