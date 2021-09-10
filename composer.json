@@ -16,10 +16,10 @@
     ],
     "require": {
         "php": ">=7.2",
-        "illuminate/database": "~5.5|~6|~7|~8",
-        "illuminate/http": "~5.5|~6|~7|~8",
-        "illuminate/routing": "~5.5|~6|~7|~8",
-        "nesbot/carbon": "^1.26.3|^2.0",
+        "illuminate/database": "~6.20.4|~7.30.4|~8.24.0",
+        "illuminate/http": "~6|~7|~8",
+        "illuminate/routing": "~6|~7|~8",
+        "nesbot/carbon": "^2.0",
         "quickbooks/v3-php-sdk": "^5.3.6"
     },
     "require-dev": {
