@@ -66,8 +66,8 @@ class Client
     public function authorizationUri()
     {
         return $this->getDataService()
-                    ->getOAuth2LoginHelper()
-                    ->getAuthorizationCodeURL();
+            ->getOAuth2LoginHelper()
+            ->getAuthorizationCodeURL();
     }
 
     /**
@@ -79,7 +79,10 @@ class Client
     {
         // In case any of the keys are not in the configs, just disable logging
         try {
-            if ($this->configs['logging']['enabled'] && dir($this->configs['logging']['location'])) {
+            if (
+                $this->configs['logging']['enabled'] &&
+                dir($this->configs['logging']['location'])
+            ) {
                 $this->data_service->setLogLocation($this->configs['logging']['location']);
 
                 return $this->data_service->enableLog();
@@ -120,14 +123,12 @@ class Client
     public function exchangeCodeForToken($code, $realm_id)
     {
         $oauth_token = $this->getDataService()
-                            ->getOAuth2LoginHelper()
-                            ->exchangeAuthorizationCodeForToken($code, $realm_id);
+            ->getOAuth2LoginHelper()
+            ->exchangeAuthorizationCodeForToken($code, $realm_id);
 
-        $this->getDataService()
-             ->updateOAuth2Token($oauth_token);
+        $this->getDataService()->updateOAuth2Token($oauth_token);
 
-        $this->token->parseOauthToken($oauth_token)
-                    ->save();
+        $this->token->parseOauthToken($oauth_token)->save();
 
         return $this;
     }
@@ -164,10 +165,7 @@ class Client
     public function getReportService()
     {
         if (!$this->hasValidAccessToken() || !isset($this->report_service)) {
-            $this->report_service = new ReportService(
-                $this->getDataService()
-                     ->getServiceContext()
-            );
+            $this->report_service = new ReportService($this->getDataService()->getServiceContext());
         }
 
         return $this->report_service;
@@ -210,9 +208,9 @@ class Client
     {
         // Associative array to use to filter out only the needed config keys when using existing token
         $existing_keys = [
-            'auth_mode'    => null,
-            'baseUrl'      => null,
-            'ClientID'     => null,
+            'auth_mode' => null,
+            'baseUrl' => null,
+            'ClientID' => null,
             'ClientSecret' => null,
         ];
 
@@ -220,14 +218,11 @@ class Client
         if ($this->hasValidAccessToken()) {
             // Pull in the configs from the token into needed keys from the configs
             return DataService::Configure(
-                array_merge(
-                    array_intersect_key($this->parseDataConfigs(), $existing_keys),
-                    [
-                        'accessTokenKey'  => $this->token->access_token,
-                        'QBORealmID'      => $this->token->realm_id,
-                        'refreshTokenKey' => $this->token->refresh_token,
-                    ]
-                )
+                array_merge(array_intersect_key($this->parseDataConfigs(), $existing_keys), [
+                    'accessTokenKey' => $this->token->access_token,
+                    'QBORealmID' => $this->token->realm_id,
+                    'refreshTokenKey' => $this->token->refresh_token,
+                ]),
             );
         }
 
@@ -235,22 +230,17 @@ class Client
         if ($this->hasValidRefreshToken()) {
             // Pull in the configs from the token into needed keys from the configs
             $data_service = DataService::Configure(
-                array_merge(
-                    array_intersect_key($this->parseDataConfigs(), $existing_keys),
-                    [
-                        'QBORealmID'      => $this->token->realm_id,
-                        'refreshTokenKey' => $this->token->refresh_token,
-                    ]
-                )
+                array_merge(array_intersect_key($this->parseDataConfigs(), $existing_keys), [
+                    'QBORealmID' => $this->token->realm_id,
+                    'refreshTokenKey' => $this->token->refresh_token,
+                ]),
             );
 
-            $oauth_token = $data_service->getOAuth2LoginHelper()
-                                        ->refreshToken();
+            $oauth_token = $data_service->getOAuth2LoginHelper()->refreshToken();
 
             $data_service->updateOAuth2Token($oauth_token);
 
-            $this->token->parseOauthToken($oauth_token)
-                        ->save();
+            $this->token->parseOauthToken($oauth_token)->save();
 
             return $data_service;
         }
@@ -265,12 +255,12 @@ class Client
     protected function parseDataConfigs()
     {
         return [
-            'auth_mode'    => $this->configs['data_service']['auth_mode'],
-            'baseUrl'      => $this->configs['data_service']['base_url'],
-            'ClientID'     => $this->configs['data_service']['client_id'],
+            'auth_mode' => $this->configs['data_service']['auth_mode'],
+            'baseUrl' => $this->configs['data_service']['base_url'],
+            'ClientID' => $this->configs['data_service']['client_id'],
             'ClientSecret' => $this->configs['data_service']['client_secret'],
-            'RedirectURI'  => route('quickbooks.token'),
-            'scope'        => $this->configs['data_service']['scope'],
+            'RedirectURI' => route('quickbooks.token'),
+            'scope' => $this->configs['data_service']['scope'],
         ];
     }
 

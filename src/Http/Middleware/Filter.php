@@ -57,7 +57,7 @@ class Filter
         QuickBooks $quickbooks,
         Redirector $redirector,
         Session $session,
-        UrlGenerator $url_generator
+        UrlGenerator $url_generator,
     ) {
         $this->quickbooks = $quickbooks;
         $this->redirector = $redirector;

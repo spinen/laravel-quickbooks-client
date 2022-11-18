@@ -61,17 +61,28 @@ class ServiceProvider extends LaravelServiceProvider
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
-            $this->publishes([
-                __DIR__ . '/../../config/quickbooks.php' => config_path('quickbooks.php'),
-            ], 'quickbooks-config');
+            $this->publishes(
+                [
+                    __DIR__ . '/../../config/quickbooks.php' => config_path('quickbooks.php'),
+                ],
+                'quickbooks-config',
+            );
 
-            $this->publishes([
-                __DIR__ . '/../../database/migrations' => database_path('migrations'),
-            ], 'quickbooks-migrations');
+            $this->publishes(
+                [
+                    __DIR__ . '/../../database/migrations' => database_path('migrations'),
+                ],
+                'quickbooks-migrations',
+            );
 
-            $this->publishes([
-                __DIR__ . '/../../resources/views' => base_path('resources/views/vendor/quickbooks'),
-            ], 'quickbooks-views');
+            $this->publishes(
+                [
+                    __DIR__ . '/../../resources/views' => base_path(
+                        'resources/views/vendor/quickbooks',
+                    ),
+                ],
+                'quickbooks-views',
+            );
         }
     }
 
@@ -82,22 +93,24 @@ class ServiceProvider extends LaravelServiceProvider
     {
         $config = $this->app->config->get('quickbooks.route');
 
-        $this->app->router->prefix($config['prefix'])
-                          ->as('quickbooks.')
-                          ->middleware($config['middleware']['default'])
-                          ->namespace('Spinen\QuickBooks\Http\Controllers')
-                          ->group(function (Router $router) use ($config) {
-                              $router->get($config['paths']['connect'], 'Controller@connect')
-                                     ->middleware($config['middleware']['authenticated'])
-                                     ->name('connect');
+        $this->app->router
+            ->prefix($config['prefix'])
+            ->as('quickbooks.')
+            ->middleware($config['middleware']['default'])
+            ->namespace('Spinen\QuickBooks\Http\Controllers')
+            ->group(function (Router $router) use ($config) {
+                $router
+                    ->get($config['paths']['connect'], 'Controller@connect')
+                    ->middleware($config['middleware']['authenticated'])
+                    ->name('connect');
 
-                              $router->delete($config['paths']['disconnect'], 'Controller@disconnect')
-                                     ->middleware($config['middleware']['authenticated'])
-                                     ->name('disconnect');
+                $router
+                    ->delete($config['paths']['disconnect'], 'Controller@disconnect')
+                    ->middleware($config['middleware']['authenticated'])
+                    ->name('disconnect');
 
-                              $router->get($config['paths']['token'], 'Controller@token')
-                                     ->name('token');
-                          });
+                $router->get($config['paths']['token'], 'Controller@token')->name('token');
+            });
     }
 
     /**

@@ -1,0 +1,19 @@
+{
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "phpVersion": "8.0",
+  "overrides": [
+    {
+      "files": "*.php",
+      "options": {
+        "printWidth": 100
+      }
+    },
+    {
+      "files": ["composer.json", "package.json", "tailwind.config.js"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}

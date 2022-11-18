@@ -73,8 +73,7 @@ class TokenTest extends TestCase
         $now = Carbon::now();
         Carbon::setTestNow($now);
 
-        $this->token->access_token_expires_at = Carbon::now()
-                                                      ->addSecond();
+        $this->token->access_token_expires_at = Carbon::now()->addSecond();
 
         $this->assertTrue($this->token->getHasValidAccessTokenAttribute());
     }
@@ -87,8 +86,7 @@ class TokenTest extends TestCase
         $now = Carbon::now();
         Carbon::setTestNow($now);
 
-        $this->token->refresh_token_expires_at = Carbon::now()
-                                                       ->addSecond();
+        $this->token->refresh_token_expires_at = Carbon::now()->addSecond();
 
         $this->assertTrue($this->token->getHasValidRefreshTokenAttribute());
     }
@@ -134,30 +132,35 @@ class TokenTest extends TestCase
     {
         $oauth_token_mock = Mockery::mock(OAuth2AccessToken::class);
 
-        $oauth_token_mock->shouldReceive('getAccessToken')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('access_token');
+        $oauth_token_mock
+            ->shouldReceive('getAccessToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('access_token');
 
-        $oauth_token_mock->shouldReceive('getAccessTokenExpiresAt')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('now');
+        $oauth_token_mock
+            ->shouldReceive('getAccessTokenExpiresAt')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('now');
 
-        $oauth_token_mock->shouldReceive('getRealmID')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('realm_id');
+        $oauth_token_mock
+            ->shouldReceive('getRealmID')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('realm_id');
 
-        $oauth_token_mock->shouldReceive('getRefreshToken')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('refresh_token');
+        $oauth_token_mock
+            ->shouldReceive('getRefreshToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('refresh_token');
 
-        $oauth_token_mock->shouldReceive('getRefreshTokenExpiresAt')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('now');
+        $oauth_token_mock
+            ->shouldReceive('getRefreshTokenExpiresAt')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('now');
 
         $this->token->parseOauthToken($oauth_token_mock);
     }
@@ -171,15 +174,17 @@ class TokenTest extends TestCase
 
         $token_mock = Mockery::mock(Token::class);
 
-        $token_mock->shouldReceive('make')
-                   ->once()
-                   ->withNoArgs()
-                   ->andReturnSelf();
+        $token_mock
+            ->shouldReceive('make')
+            ->once()
+            ->withNoArgs()
+            ->andReturnSelf();
 
-        $this->token->user->shouldReceive('quickBooksToken')
-                          ->once()
-                          ->withNoArgs()
-                          ->andReturn($token_mock);
+        $this->token->user
+            ->shouldReceive('quickBooksToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($token_mock);
 
         $this->token->user->id = 1;
 
@@ -198,9 +203,9 @@ class TokenTest extends TestCase
 function config($key)
 {
     return [
-        'keys'  => [
+        'keys' => [
             'foreign' => 'user_id',
-            'owner'   => 'id',
+            'owner' => 'id',
         ],
         'model' => 'App\User',
     ];

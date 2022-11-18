@@ -34,14 +34,15 @@ class Controller extends LaravelController
     {
         // Give view to remove token if user already linked account
         if ($quickbooks->hasValidRefreshToken()) {
-            return $view_factory->make('quickbooks::disconnect')
-                                ->with('company', $quickbooks->getDataService()
-                                                             ->getCompanyInfo());
+            return $view_factory
+                ->make('quickbooks::disconnect')
+                ->with('company', $quickbooks->getDataService()->getCompanyInfo());
         }
 
         // Give view to link account
-        return $view_factory->make('quickbooks::connect')
-                            ->with('authorization_uri', $quickbooks->authorizationUri());
+        return $view_factory
+            ->make('quickbooks::connect')
+            ->with('authorization_uri', $quickbooks->authorizationUri());
     }
 
     /**
@@ -77,8 +78,12 @@ class Controller extends LaravelController
      * @throws \QuickBooksOnline\API\Exception\SdkException
      * @throws \QuickBooksOnline\API\Exception\ServiceException
      */
-    public function token(Redirector $redirector, Request $request, QuickBooks $quickbooks, UrlGenerator $url_generator)
-    {
+    public function token(
+        Redirector $redirector,
+        Request $request,
+        QuickBooks $quickbooks,
+        UrlGenerator $url_generator,
+    ) {
         // TODO: Deal with exceptions
         $quickbooks->exchangeCodeForToken($request->get('code'), $request->get('realmId'));
 

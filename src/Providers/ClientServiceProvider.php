@@ -27,9 +27,7 @@ class ClientServiceProvider extends LaravelServiceProvider
      */
     public function provides()
     {
-        return [
-            Client::class,
-        ];
+        return [Client::class];
     }
 
     /**
@@ -40,10 +38,12 @@ class ClientServiceProvider extends LaravelServiceProvider
     public function register()
     {
         $this->app->bind(Client::class, function (Application $app) {
-            $token = ($app->auth->user()->quickBooksToken)
-                ? : $app->auth->user()
-                              ->quickBooksToken()
-                              ->make();
+            $token =
+                $app->auth->user()->quickBooksToken ?:
+                $app->auth
+                    ->user()
+                    ->quickBooksToken()
+                    ->make();
 
             return new Client($app->config->get('quickbooks'), $token);
         });

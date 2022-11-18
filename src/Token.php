@@ -39,10 +39,7 @@ class Token extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'access_token_expires_at',
-        'refresh_token_expires_at',
-    ];
+    protected $dates = ['access_token_expires_at', 'refresh_token_expires_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -67,8 +64,7 @@ class Token extends Model
      */
     public function getHasValidAccessTokenAttribute()
     {
-        return $this->access_token_expires_at && Carbon::now()
-                                                       ->lt($this->access_token_expires_at);
+        return $this->access_token_expires_at && Carbon::now()->lt($this->access_token_expires_at);
     }
 
     /**
@@ -80,8 +76,8 @@ class Token extends Model
      */
     public function getHasValidRefreshTokenAttribute()
     {
-        return $this->refresh_token_expires_at && Carbon::now()
-                                                        ->lt($this->refresh_token_expires_at);
+        return $this->refresh_token_expires_at &&
+            Carbon::now()->lt($this->refresh_token_expires_at);
     }
 
     /**
@@ -120,8 +116,7 @@ class Token extends Model
 
         $this->delete();
 
-        return $user->quickBooksToken()
-                    ->make();
+        return $user->quickBooksToken()->make();
     }
 
     /**
@@ -133,6 +128,10 @@ class Token extends Model
     {
         $config = config('quickbooks.user');
 
-        return $this->belongsTo($config['model'], $config['keys']['foreign'], $config['keys']['owner']);
+        return $this->belongsTo(
+            $config['model'],
+            $config['keys']['foreign'],
+            $config['keys']['owner'],
+        );
     }
 }

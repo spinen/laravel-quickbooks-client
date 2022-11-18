@@ -59,7 +59,12 @@ class FilterTest extends TestCase
         $this->session_mock = Mockery::mock(Session::class);
         $this->url_generator_mock = Mockery::mock(UrlGenerator::class);
 
-        $this->filter = new Filter($this->quickbooks_mock, $this->redirector_mock, $this->session_mock, $this->url_generator_mock);
+        $this->filter = new Filter(
+            $this->quickbooks_mock,
+            $this->redirector_mock,
+            $this->session_mock,
+            $this->url_generator_mock,
+        );
     }
 
     /**
@@ -79,10 +84,11 @@ class FilterTest extends TestCase
             $this->assertEquals($this->request_mock, $request);
         };
 
-        $this->quickbooks_mock->shouldReceive('hasValidRefreshToken')
-                              ->once()
-                              ->withNoArgs()
-                              ->andReturnTrue();
+        $this->quickbooks_mock
+            ->shouldReceive('hasValidRefreshToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturnTrue();
 
         $this->filter->handle($this->request_mock, $next_middleware);
     }
@@ -92,38 +98,40 @@ class FilterTest extends TestCase
      */
     public function it_redirects_to_quickbooks_connect_route_after_setting_intended_session_if_account_not_linked()
     {
-        $this->request_mock->shouldReceive('path')
-                           ->once()
-                           ->withNoArgs()
-                           ->andReturn('path');
+        $this->request_mock
+            ->shouldReceive('path')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('path');
 
-        $this->url_generator_mock->shouldReceive('to')
-                                 ->once()
-                                 ->with('path')
-                                 ->andReturn('http://to/path');
+        $this->url_generator_mock
+            ->shouldReceive('to')
+            ->once()
+            ->with('path')
+            ->andReturn('http://to/path');
 
-        $this->session_mock->shouldReceive('put')
-                           ->once()
-                           ->withArgs([
-                               'url.intended',
-                               'http://to/path',
-                           ])
-                           ->andReturnNull();
+        $this->session_mock
+            ->shouldReceive('put')
+            ->once()
+            ->withArgs(['url.intended', 'http://to/path'])
+            ->andReturnNull();
 
-        $this->redirector_mock->shouldReceive('route')
-                              ->once()
-                              ->with('quickbooks.connect')
-                              ->andReturnSelf();
+        $this->redirector_mock
+            ->shouldReceive('route')
+            ->once()
+            ->with('quickbooks.connect')
+            ->andReturnSelf();
 
         $next_middleware = function ($request) {
             // If this is called, then fail test
             $this->assertTrue(false);
         };
 
-        $this->quickbooks_mock->shouldReceive('hasValidRefreshToken')
-                              ->once()
-                              ->withNoArgs()
-                              ->andReturnFalse();
+        $this->quickbooks_mock
+            ->shouldReceive('hasValidRefreshToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturnFalse();
 
         $this->filter->handle($this->request_mock, $next_middleware);
     }
