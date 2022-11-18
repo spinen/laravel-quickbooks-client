@@ -196,7 +196,7 @@ class TokenTest extends TestCase
      */
     public function it_get_related_user_model_from_configuration()
     {
-        $this->assertEquals('App\User,user_id,id', $this->token->user());
+        $this->assertEquals('App\Models\User,user_id,id', $this->token->user());
     }
 }
 
@@ -207,6 +207,6 @@ function config($key)
             'foreign' => 'user_id',
             'owner' => 'id',
         ],
-        'model' => 'App\User',
+        'model' => 'App\Models\User',
     ];
 }
