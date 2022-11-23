@@ -4,4 +4,3 @@ phpunit.xml
 /build
 .phpunit.result.cache
 composer.lock
-package-lock.json
