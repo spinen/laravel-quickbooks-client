@@ -11,6 +11,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 use Mockery;
 use Mockery\Mock;
+use QuickBooksOnline\API\DataService\DataService;
 use Spinen\QuickBooks\Client as QuickBooks;
 use Spinen\QuickBooks\TestCase;
 
@@ -63,7 +64,7 @@ class ControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->data_service_mock = Mockery::mock();
+        $this->data_service_mock = Mockery::mock(DataService::class);
         $this->quickbooks_mock = Mockery::mock(QuickBooks::class);
         $this->redirector_mock = Mockery::mock(Redirector::class);
         $this->request_mock = Mockery::mock(Request::class);
@@ -199,11 +200,12 @@ class ControllerTest extends TestCase
     public function it_finishes_connecting_to_quickbooks_when_given_a_valid_token_by_quickbooks()
     {
         $this->url_generator_mock = Mockery::mock(UrlGenerator::class);
+        $realmId = random_int(1, 9999);
 
         $this->quickbooks_mock
             ->shouldReceive('exchangeCodeForToken')
             ->once()
-            ->withArgs(['code', 'realmId']);
+            ->withArgs(['code', $realmId]);
 
         $this->request_mock
             ->shouldReceive('get')
@@ -215,7 +217,7 @@ class ControllerTest extends TestCase
             ->shouldReceive('get')
             ->once()
             ->withArgs(['realmId'])
-            ->andReturn('realmId');
+            ->andReturn($realmId);
 
         $this->request_mock
             ->shouldReceive('session')

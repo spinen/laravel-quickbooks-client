@@ -3,6 +3,7 @@
 namespace Spinen\QuickBooks;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Mockery;
 use QuickBooksOnline\API\Core\OAuth\OAuth2\OAuth2AccessToken;
 use Spinen\QuickBooks\Stubs\TokenStub;
@@ -172,19 +173,20 @@ class TokenTest extends TestCase
     {
         $this->token->user = Mockery::mock(User::class);
 
+        $has_one_mock = Mockery::mock(HasOne::class);
         $token_mock = Mockery::mock(Token::class);
 
-        $token_mock
+        $has_one_mock
             ->shouldReceive('make')
             ->once()
             ->withNoArgs()
-            ->andReturnSelf();
+            ->andReturn($token_mock);
 
         $this->token->user
             ->shouldReceive('quickBooksToken')
             ->once()
             ->withNoArgs()
-            ->andReturn($token_mock);
+            ->andReturn($has_one_mock);
 
         $this->token->user->id = 1;
 
@@ -196,7 +198,7 @@ class TokenTest extends TestCase
      */
     public function it_get_related_user_model_from_configuration()
     {
-        $this->assertEquals('App\Models\User,user_id,id', $this->token->user());
+        $this->assertInstanceOf(User::class, $this->token->user()->getModel());
     }
 }
 
@@ -207,6 +209,6 @@ function config($key)
             'foreign' => 'user_id',
             'owner' => 'id',
         ],
-        'model' => 'App\Models\User',
+        'model' => User::class,
     ];
 }
