@@ -8,8 +8,6 @@ use Spinen\QuickBooks\Client;
 
 /**
  * Class ClientServiceProvider
- *
- * @package Spinen\QuickBooks
  */
 class ClientServiceProvider extends LaravelServiceProvider
 {

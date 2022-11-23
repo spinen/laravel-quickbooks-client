@@ -6,8 +6,6 @@ use Spinen\QuickBooks\Stubs\User;
 
 /**
  * Class HasQuickBooksTokenTest
- *
- * @package Spinen\QuickBooks
  */
 class HasQuickBooksTokenTest extends TestCase
 {

@@ -12,14 +12,12 @@ use Spinen\QuickBooks\HasQuickBooksToken;
  * Class User
  *
  * Stub for a Laravel User model
- *
- * @package Spinen\QuickBooks\Stubs
  */
 class User
 {
     use HasQuickBooksToken;
 
-    public function hasOne($relationship):HasOne
+    public function hasOne($relationship): HasOne
     {
         $related_mock = Mockery::mock($relationship);
         $related_mock->shouldIgnoreMissing();

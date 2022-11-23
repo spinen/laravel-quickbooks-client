@@ -17,8 +17,6 @@ use Spinen\QuickBooks\TestCase;
 
 /**
  * Class ControllerTest
- *
- * @package Spinen\QuickBooks\Http\Controllers
  */
 class ControllerTest extends TestCase
 {

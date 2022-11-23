@@ -11,18 +11,11 @@ use Spinen\QuickBooks\Client as QuickBooks;
 
 /**
  * Class Filter
- *
- * @package Spinen\QuickBooks
  */
 class Filter
 {
     /**
      * Create a new QuickBooks filter middleware instance.
-     *
-     * @param QuickBooks $quickbooks
-     * @param Redirector $redirector
-     * @param Session $session
-     * @param UrlGenerator $url_generator
      */
     public function __construct(
         protected QuickBooks $quickbooks,
@@ -37,7 +30,7 @@ class Filter
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if (!$this->quickbooks->hasValidRefreshToken()) {
+        if (! $this->quickbooks->hasValidRefreshToken()) {
             // Set intended route, so that after linking account, user is put where they were going
             $this->session->put('url.intended', $this->url_generator->to($request->path()));
 

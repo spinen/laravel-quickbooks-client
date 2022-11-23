@@ -13,13 +13,12 @@ use QuickBooksOnline\API\Exception\SdkException;
 /**
  * Class Token
  *
- * @package Spinen\QuickBooks
  *
- * @property boolean $hasValidAccessToken Is the access token valid
- * @property boolean $hasValidRefreshToken Is the refresh token valid
+ * @property bool $hasValidAccessToken Is the access token valid
+ * @property bool $hasValidRefreshToken Is the refresh token valid
  * @property Carbon $access_token_expires_at Timestamp that the access token expires
  * @property Carbon $refresh_token_expires_at Timestamp that the refresh token expires
- * @property integer $user_id Id of the related User
+ * @property int $user_id Id of the related User
  * @property string $access_token The access token
  * @property string $realm_id Realm Id from the OAuth token
  * @property string $refresh_token The refresh token

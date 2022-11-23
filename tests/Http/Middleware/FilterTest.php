@@ -13,8 +13,6 @@ use Spinen\QuickBooks\TestCase;
 
 /**
  * Class FilterTest
- *
- * @package Spinen\QuickBooks\Http\Middleware
  */
 class FilterTest extends TestCase
 {
@@ -48,9 +46,6 @@ class FilterTest extends TestCase
      */
     protected $url_generator_mock;
 
-    /**
-     *
-     */
     protected function setUp(): void
     {
         $this->quickbooks_mock = Mockery::mock(QuickBooks::class);

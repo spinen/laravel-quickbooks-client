@@ -10,8 +10,6 @@ use QuickBooksOnline\API\ReportService\ReportService;
 
 /**
  * Class Client
- *
- * @package Spinen\QuickBooks
  */
 class Client
 {
@@ -45,9 +43,6 @@ class Client
 
     /**
      * Client constructor.
-     *
-     * @param array $configs
-     * @param Token $token
      */
     public function __construct(array $configs, Token $token)
     {
@@ -135,7 +130,7 @@ class Client
      */
     public function getDataService(): DataService
     {
-        if (!$this->hasValidAccessToken() || !isset($this->data_service)) {
+        if (! $this->hasValidAccessToken() || ! isset($this->data_service)) {
             $this->data_service = $this->makeDataService();
 
             $this->configureLogging();
@@ -154,7 +149,7 @@ class Client
      */
     public function getReportService(): ReportService
     {
-        if (!$this->hasValidAccessToken() || !isset($this->report_service)) {
+        if (! $this->hasValidAccessToken() || ! isset($this->report_service)) {
             $this->report_service = new ReportService($this->getDataService()->getServiceContext());
         }
 

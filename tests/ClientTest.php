@@ -9,8 +9,6 @@ use QuickBooksOnline\API\Exception\ServiceException;
 
 /**
  * Class ClientTest
- *
- * @package Spinen\QuickBooks
  */
 class ClientTest extends TestCase
 {
@@ -48,7 +46,7 @@ class ClientTest extends TestCase
 
     private function makeClient($configs = null)
     {
-        if (!is_null($configs)) {
+        if (! is_null($configs)) {
             return new Client($configs, $this->token_mock);
         }
 

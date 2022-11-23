@@ -8,8 +8,6 @@ use Spinen\QuickBooks\Http\Middleware\Filter;
 
 /**
  * Class ServiceProvider
- *
- * @package Spinen\QuickBooks
  */
 class ServiceProvider extends LaravelServiceProvider
 {
@@ -32,7 +30,7 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/quickbooks.php', 'quickbooks');
+        $this->mergeConfigFrom(__DIR__.'/../../config/quickbooks.php', 'quickbooks');
     }
 
     /**
@@ -53,25 +51,25 @@ class ServiceProvider extends LaravelServiceProvider
     protected function registerPublishes(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
             $this->publishes(
                 [
-                    __DIR__ . '/../../config/quickbooks.php' => config_path('quickbooks.php'),
+                    __DIR__.'/../../config/quickbooks.php' => config_path('quickbooks.php'),
                 ],
                 'quickbooks-config',
             );
 
             $this->publishes(
                 [
-                    __DIR__ . '/../../database/migrations' => database_path('migrations'),
+                    __DIR__.'/../../database/migrations' => database_path('migrations'),
                 ],
                 'quickbooks-migrations',
             );
 
             $this->publishes(
                 [
-                    __DIR__ . '/../../resources/views' => base_path(
+                    __DIR__.'/../../resources/views' => base_path(
                         'resources/views/vendor/quickbooks',
                     ),
                 ],
@@ -112,6 +110,6 @@ class ServiceProvider extends LaravelServiceProvider
      */
     protected function registerViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'quickbooks');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'quickbooks');
     }
 }

@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
  * Class TestCase
- *
- * @package Tests\Spinen\QuickBooks
  */
 abstract class TestCase extends PHPUnitTestCase
 {
@@ -22,9 +20,6 @@ abstract class TestCase extends PHPUnitTestCase
      * Helper to allow mocking of iterator classes.
      *
      * @link https://gist.github.com/VladaHejda/8299871
-     *
-     * @param MockInterface $mock
-     * @param array $items
      *
      * @return void
      */
@@ -69,7 +64,7 @@ abstract class TestCase extends PHPUnitTestCase
             });
 
             $mock->shouldReceive('next')->andReturnUsing(function () use (&$counter) {
-                ++$counter;
+                $counter++;
             });
         }
 

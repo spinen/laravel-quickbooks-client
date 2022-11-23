@@ -17,8 +17,6 @@ use Spinen\QuickBooks\Client as QuickBooks;
 
 /**
  * Class Controller
- *
- * @package Spinen\QuickBooks
  */
 class Controller extends LaravelController
 {

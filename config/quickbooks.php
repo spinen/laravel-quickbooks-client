@@ -23,11 +23,11 @@ return [
     */
 
     'data_service' => [
-        'auth_mode'     => 'oauth2',
-        'base_url'      => env('QUICKBOOKS_API_URL', config('app.env') === 'production' ? 'Production' : 'Development'),
-        'client_id'     => env('QUICKBOOKS_CLIENT_ID'),
+        'auth_mode' => 'oauth2',
+        'base_url' => env('QUICKBOOKS_API_URL', config('app.env') === 'production' ? 'Production' : 'Development'),
+        'client_id' => env('QUICKBOOKS_CLIENT_ID'),
         'client_secret' => env('QUICKBOOKS_CLIENT_SECRET'),
-        'scope'         => 'com.intuit.quickbooks.accounting',
+        'scope' => 'com.intuit.quickbooks.accounting',
     ],
 
     /*
@@ -62,17 +62,17 @@ return [
             // Added to the protected routes for the package (i.e. connect & disconnect)
             'authenticated' => 'auth',
             // Added to all of the routes for the package
-            'default'       => 'web',
+            'default' => 'web',
         ],
-        'paths'      => [
+        'paths' => [
             // Show forms to connect/disconnect
-            'connect'    => 'connect',
+            'connect' => 'connect',
             // The DELETE takes place to remove token
             'disconnect' => 'disconnect',
             // Return URI that QuickBooks sends code to allow getting OAuth token
-            'token'      => 'token',
+            'token' => 'token',
         ],
-        'prefix'     => 'quickbooks',
+        'prefix' => 'quickbooks',
     ],
 
     /*
@@ -86,9 +86,9 @@ return [
     */
 
     'user' => [
-        'keys'  => [
+        'keys' => [
             'foreign' => 'user_id',
-            'owner'   => 'id',
+            'owner' => 'id',
         ],
         'model' => User::class,
     ],

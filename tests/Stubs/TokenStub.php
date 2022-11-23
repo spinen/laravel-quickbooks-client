@@ -12,8 +12,6 @@ use Spinen\QuickBooks\Token;
  * Class TokenStub
  *
  * Stub for a Laravel Token model
- *
- * @package Spinen\QuickBooks\Stubs
  */
 class TokenStub extends Token
 {

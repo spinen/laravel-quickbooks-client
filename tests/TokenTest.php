@@ -11,8 +11,6 @@ use Spinen\QuickBooks\Stubs\User;
 
 /**
  * Class TokenTest
- *
- * @package Spinen\QuickBooks
  */
 class TokenTest extends TestCase
 {
