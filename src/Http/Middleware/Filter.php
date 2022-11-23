@@ -7,7 +7,6 @@ use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Spinen\QuickBooks\Client;
 use Spinen\QuickBooks\Client as QuickBooks;
 
 /**
@@ -18,34 +17,6 @@ use Spinen\QuickBooks\Client as QuickBooks;
 class Filter
 {
     /**
-     * The QuickBooks client instance.
-     *
-     * @var Client
-     */
-    protected $quickbooks;
-
-    /**
-     * The redirector instance.
-     *
-     * @var Redirector
-     */
-    protected $redirector;
-
-    /**
-     * The session instance.
-     *
-     * @var Session
-     */
-    protected $session;
-
-    /**
-     * The UrlGenerator instance.
-     *
-     * @var UrlGenerator
-     */
-    protected $url_generator;
-
-    /**
      * Create a new QuickBooks filter middleware instance.
      *
      * @param QuickBooks $quickbooks
@@ -54,26 +25,17 @@ class Filter
      * @param UrlGenerator $url_generator
      */
     public function __construct(
-        QuickBooks $quickbooks,
-        Redirector $redirector,
-        Session $session,
-        UrlGenerator $url_generator,
+        protected QuickBooks $quickbooks,
+        protected Redirector $redirector,
+        protected Session $session,
+        protected UrlGenerator $url_generator,
     ) {
-        $this->quickbooks = $quickbooks;
-        $this->redirector = $redirector;
-        $this->session = $session;
-        $this->url_generator = $url_generator;
     }
 
     /**
      * Handle an incoming request.
-     *
-     * @param Request $request Request
-     * @param Closure $next Closure
-     *
-     * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$this->quickbooks->hasValidRefreshToken()) {
             // Set intended route, so that after linking account, user is put where they were going

@@ -15,10 +15,8 @@ class ServiceProvider extends LaravelServiceProvider
 {
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerMiddleware();
 
@@ -31,10 +29,8 @@ class ServiceProvider extends LaravelServiceProvider
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/quickbooks.php', 'quickbooks');
     }
@@ -43,9 +39,8 @@ class ServiceProvider extends LaravelServiceProvider
      * Register the middleware
      *
      * If a route needs to have the QuickBooks client, then make sure that the user has linked their account.
-     *
      */
-    public function registerMiddleware()
+    public function registerMiddleware(): void
     {
         $this->app->router->aliasMiddleware('quickbooks', Filter::class);
     }
@@ -54,9 +49,8 @@ class ServiceProvider extends LaravelServiceProvider
      * There are several resources that get published
      *
      * Only worry about telling the application about them if running in the console.
-     *
      */
-    protected function registerPublishes()
+    protected function registerPublishes(): void
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
@@ -89,7 +83,7 @@ class ServiceProvider extends LaravelServiceProvider
     /**
      * Register the routes needed for the registration flow
      */
-    protected function registerRoutes()
+    protected function registerRoutes(): void
     {
         $config = $this->app->config->get('quickbooks.route');
 
@@ -116,7 +110,7 @@ class ServiceProvider extends LaravelServiceProvider
     /**
      * Register the views
      */
-    protected function registerViews()
+    protected function registerViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'quickbooks');
     }

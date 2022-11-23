@@ -59,11 +59,10 @@ class Client
     /**
      * Build URI to request authorization
      *
-     * @return String
      * @throws SdkException
      * @throws ServiceException
      */
-    public function authorizationUri()
+    public function authorizationUri(): string
     {
         return $this->getDataService()
             ->getOAuth2LoginHelper()
@@ -72,10 +71,8 @@ class Client
 
     /**
      * Configure the logging per config/quickbooks.php
-     *
-     * @return DataService
      */
-    public function configureLogging()
+    public function configureLogging(): DataService
     {
         // In case any of the keys are not in the configs, just disable logging
         try {
@@ -97,10 +94,9 @@ class Client
     /**
      * Delete the token
      *
-     * @return $this
      * @throws Exception
      */
-    public function deleteToken()
+    public function deleteToken(): self
     {
         $this->setToken($this->token->remove());
 
@@ -113,14 +109,10 @@ class Client
      * Upon the user allowing access to their account, there is a code sent to
      * over that needs to be converted to an OAuth token.
      *
-     * @param string $code
-     * @param integer $realm_id
-     *
-     * @return $this
      * @throws SdkException
      * @throws ServiceException
      */
-    public function exchangeCodeForToken($code, $realm_id)
+    public function exchangeCodeForToken(string $code, int $realm_id): self
     {
         $oauth_token = $this->getDataService()
             ->getOAuth2LoginHelper()
@@ -138,11 +130,10 @@ class Client
      *
      * Makes sure that it is setup & ready to be used.
      *
-     * @return DataService
      * @throws SdkException
      * @throws ServiceException
      */
-    public function getDataService()
+    public function getDataService(): DataService
     {
         if (!$this->hasValidAccessToken() || !isset($this->data_service)) {
             $this->data_service = $this->makeDataService();
@@ -158,11 +149,10 @@ class Client
      *
      * Makes sure that it is setup & ready to be used.
      *
-     * @return ReportService
      * @throws SdkException
      * @throws ServiceException
      */
-    public function getReportService()
+    public function getReportService(): ReportService
     {
         if (!$this->hasValidAccessToken() || !isset($this->report_service)) {
             $this->report_service = new ReportService($this->getDataService()->getServiceContext());
@@ -173,20 +163,16 @@ class Client
 
     /**
      * Check to see if the token has a valid access token
-     *
-     * @return boolean
      */
-    public function hasValidAccessToken()
+    public function hasValidAccessToken(): bool
     {
         return $this->token->hasValidAccessToken;
     }
 
     /**
      * Check to see if the token has a valid refresh token
-     *
-     * @return boolean
      */
-    public function hasValidRefreshToken()
+    public function hasValidRefreshToken(): bool
     {
         return $this->token->hasValidRefreshToken;
     }
@@ -200,11 +186,10 @@ class Client
      *      2) Have valid refresh token, so renew access token & then use
      *      3) No existing token, so need to link account
      *
-     * @return DataService
      * @throws SdkException
      * @throws ServiceException
      */
-    protected function makeDataService()
+    protected function makeDataService(): DataService
     {
         // Associative array to use to filter out only the needed config keys when using existing token
         $existing_keys = [
@@ -252,7 +237,7 @@ class Client
     /**
      * QuickBooks is not consistent on their naming of variables, so map them
      */
-    protected function parseDataConfigs()
+    protected function parseDataConfigs(): array
     {
         return [
             'auth_mode' => $this->configs['data_service']['auth_mode'],
@@ -266,12 +251,8 @@ class Client
 
     /**
      * Allow setting a token to switch "user"
-     *
-     * @param Token $token
-     *
-     * @return $this
      */
-    public function setToken(Token $token)
+    public function setToken(Token $token): self
     {
         $this->token = $token;
 

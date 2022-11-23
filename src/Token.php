@@ -2,7 +2,7 @@
 
 namespace Spinen\QuickBooks;
 
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -59,10 +59,8 @@ class Token extends Model
      * Check if access token is valid
      *
      * A token is good for 1 hour, so if it expires greater than 1 hour from now, it is still valid
-     *
-     * @return bool
      */
-    public function getHasValidAccessTokenAttribute()
+    public function getHasValidAccessTokenAttribute(): bool
     {
         return $this->access_token_expires_at && Carbon::now()->lt($this->access_token_expires_at);
     }
@@ -71,10 +69,8 @@ class Token extends Model
      * Check if refresh token is valid
      *
      * A token is good for 101 days, so if it expires greater than 101 days from now, it is still valid
-     *
-     * @return bool
      */
-    public function getHasValidRefreshTokenAttribute()
+    public function getHasValidRefreshTokenAttribute(): bool
     {
         return $this->refresh_token_expires_at &&
             Carbon::now()->lt($this->refresh_token_expires_at);
@@ -85,12 +81,9 @@ class Token extends Model
      *
      * Process the OAuth token & store it in the persistent storage
      *
-     * @param OAuth2AccessToken $oauth_token
-     *
-     * @return Token
      * @throws SdkException
      */
-    public function parseOauthToken(OAuth2AccessToken $oauth_token)
+    public function parseOauthToken(OAuth2AccessToken $oauth_token): Token
     {
         // TODO: Deal with exception
         $this->access_token = $oauth_token->getAccessToken();
@@ -107,10 +100,9 @@ class Token extends Model
      *
      * When a token is deleted, we still need a token for the client for the user.
      *
-     * @return Token
      * @throws Exception
      */
-    public function remove()
+    public function remove(): Token
     {
         $user = $this->user;
 
@@ -121,10 +113,8 @@ class Token extends Model
 
     /**
      * Belongs to user.
-     *
-     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         $config = config('quickbooks.user');
 
