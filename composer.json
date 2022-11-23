@@ -24,6 +24,7 @@
     "quickbooks/v3-php-sdk": "^5.4.6"
   },
   "require-dev": {
+    "laravel/pint": "^1.2",
     "mockery/mockery": "^1.5.1",
     "phpunit/phpunit": "^9.5.8",
     "psy/psysh": "^0.11"
