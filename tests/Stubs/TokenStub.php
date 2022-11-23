@@ -17,7 +17,7 @@ use Spinen\QuickBooks\Token;
  */
 class TokenStub extends Token
 {
-    // Put public properties on this stub to keep the Model from tyring to get them from db
+    // Put public properties on this stub to keep the Model from trying to get them from db
     public $access_token = null;
 
     public $access_token_expires_at = null;
