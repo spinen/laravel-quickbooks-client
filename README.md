@@ -27,7 +27,7 @@ $ composer require spinen/laravel-quickbooks-client
 2. Run our migration to install the `quickbooks_tokens` table:
 
 ```bash
-$ php artisan migrate --package=spinen/laravel-quickbooks-client
+$ php artisan migrate
 ```
 
 The package uses the [auto registration feature](https://laravel.com/docs/packages#package-discovery) of Laravel.
