@@ -3,6 +3,7 @@
 namespace Spinen\QuickBooks;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Mockery;
 use QuickBooksOnline\API\Core\OAuth\OAuth2\OAuth2AccessToken;
 use Spinen\QuickBooks\Stubs\TokenStub;
@@ -10,8 +11,6 @@ use Spinen\QuickBooks\Stubs\User;
 
 /**
  * Class TokenTest
- *
- * @package Spinen\QuickBooks
  */
 class TokenTest extends TestCase
 {
@@ -73,8 +72,7 @@ class TokenTest extends TestCase
         $now = Carbon::now();
         Carbon::setTestNow($now);
 
-        $this->token->access_token_expires_at = Carbon::now()
-                                                      ->addSecond();
+        $this->token->access_token_expires_at = Carbon::now()->addSecond();
 
         $this->assertTrue($this->token->getHasValidAccessTokenAttribute());
     }
@@ -87,8 +85,7 @@ class TokenTest extends TestCase
         $now = Carbon::now();
         Carbon::setTestNow($now);
 
-        $this->token->refresh_token_expires_at = Carbon::now()
-                                                       ->addSecond();
+        $this->token->refresh_token_expires_at = Carbon::now()->addSecond();
 
         $this->assertTrue($this->token->getHasValidRefreshTokenAttribute());
     }
@@ -134,30 +131,35 @@ class TokenTest extends TestCase
     {
         $oauth_token_mock = Mockery::mock(OAuth2AccessToken::class);
 
-        $oauth_token_mock->shouldReceive('getAccessToken')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('access_token');
+        $oauth_token_mock
+            ->shouldReceive('getAccessToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('access_token');
 
-        $oauth_token_mock->shouldReceive('getAccessTokenExpiresAt')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('now');
+        $oauth_token_mock
+            ->shouldReceive('getAccessTokenExpiresAt')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('now');
 
-        $oauth_token_mock->shouldReceive('getRealmID')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('realm_id');
+        $oauth_token_mock
+            ->shouldReceive('getRealmID')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('realm_id');
 
-        $oauth_token_mock->shouldReceive('getRefreshToken')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('refresh_token');
+        $oauth_token_mock
+            ->shouldReceive('getRefreshToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('refresh_token');
 
-        $oauth_token_mock->shouldReceive('getRefreshTokenExpiresAt')
-                         ->once()
-                         ->withNoArgs()
-                         ->andReturn('now');
+        $oauth_token_mock
+            ->shouldReceive('getRefreshTokenExpiresAt')
+            ->once()
+            ->withNoArgs()
+            ->andReturn('now');
 
         $this->token->parseOauthToken($oauth_token_mock);
     }
@@ -169,17 +171,20 @@ class TokenTest extends TestCase
     {
         $this->token->user = Mockery::mock(User::class);
 
+        $has_one_mock = Mockery::mock(HasOne::class);
         $token_mock = Mockery::mock(Token::class);
 
-        $token_mock->shouldReceive('make')
-                   ->once()
-                   ->withNoArgs()
-                   ->andReturnSelf();
+        $has_one_mock
+            ->shouldReceive('make')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($token_mock);
 
-        $this->token->user->shouldReceive('quickBooksToken')
-                          ->once()
-                          ->withNoArgs()
-                          ->andReturn($token_mock);
+        $this->token->user
+            ->shouldReceive('quickBooksToken')
+            ->once()
+            ->withNoArgs()
+            ->andReturn($has_one_mock);
 
         $this->token->user->id = 1;
 
@@ -191,17 +196,17 @@ class TokenTest extends TestCase
      */
     public function it_get_related_user_model_from_configuration()
     {
-        $this->assertEquals('App\User,user_id,id', $this->token->user());
+        $this->assertInstanceOf(User::class, $this->token->user()->getModel());
     }
 }
 
 function config($key)
 {
     return [
-        'keys'  => [
+        'keys' => [
             'foreign' => 'user_id',
-            'owner'   => 'id',
+            'owner' => 'id',
         ],
-        'model' => 'App\User',
+        'model' => User::class,
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace Spinen\QuickBooks;
 
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -13,13 +13,12 @@ use QuickBooksOnline\API\Exception\SdkException;
 /**
  * Class Token
  *
- * @package Spinen\QuickBooks
  *
- * @property boolean $hasValidAccessToken Is the access token valid
- * @property boolean $hasValidRefreshToken Is the refresh token valid
+ * @property bool $hasValidAccessToken Is the access token valid
+ * @property bool $hasValidRefreshToken Is the refresh token valid
  * @property Carbon $access_token_expires_at Timestamp that the access token expires
  * @property Carbon $refresh_token_expires_at Timestamp that the refresh token expires
- * @property integer $user_id Id of the related User
+ * @property int $user_id Id of the related User
  * @property string $access_token The access token
  * @property string $realm_id Realm Id from the OAuth token
  * @property string $refresh_token The refresh token
@@ -39,10 +38,7 @@ class Token extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'access_token_expires_at',
-        'refresh_token_expires_at',
-    ];
+    protected $dates = ['access_token_expires_at', 'refresh_token_expires_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -62,26 +58,21 @@ class Token extends Model
      * Check if access token is valid
      *
      * A token is good for 1 hour, so if it expires greater than 1 hour from now, it is still valid
-     *
-     * @return bool
      */
-    public function getHasValidAccessTokenAttribute()
+    public function getHasValidAccessTokenAttribute(): bool
     {
-        return $this->access_token_expires_at && Carbon::now()
-                                                       ->lt($this->access_token_expires_at);
+        return $this->access_token_expires_at && Carbon::now()->lt($this->access_token_expires_at);
     }
 
     /**
      * Check if refresh token is valid
      *
      * A token is good for 101 days, so if it expires greater than 101 days from now, it is still valid
-     *
-     * @return bool
      */
-    public function getHasValidRefreshTokenAttribute()
+    public function getHasValidRefreshTokenAttribute(): bool
     {
-        return $this->refresh_token_expires_at && Carbon::now()
-                                                        ->lt($this->refresh_token_expires_at);
+        return $this->refresh_token_expires_at &&
+            Carbon::now()->lt($this->refresh_token_expires_at);
     }
 
     /**
@@ -89,12 +80,9 @@ class Token extends Model
      *
      * Process the OAuth token & store it in the persistent storage
      *
-     * @param OAuth2AccessToken $oauth_token
-     *
-     * @return Token
      * @throws SdkException
      */
-    public function parseOauthToken(OAuth2AccessToken $oauth_token)
+    public function parseOauthToken(OAuth2AccessToken $oauth_token): Token
     {
         // TODO: Deal with exception
         $this->access_token = $oauth_token->getAccessToken();
@@ -111,28 +99,28 @@ class Token extends Model
      *
      * When a token is deleted, we still need a token for the client for the user.
      *
-     * @return Token
      * @throws Exception
      */
-    public function remove()
+    public function remove(): Token
     {
         $user = $this->user;
 
         $this->delete();
 
-        return $user->quickBooksToken()
-                    ->make();
+        return $user->quickBooksToken()->make();
     }
 
     /**
      * Belongs to user.
-     *
-     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         $config = config('quickbooks.user');
 
-        return $this->belongsTo($config['model'], $config['keys']['foreign'], $config['keys']['owner']);
+        return $this->belongsTo(
+            $config['model'],
+            $config['keys']['foreign'],
+            $config['keys']['owner'],
+        );
     }
 }

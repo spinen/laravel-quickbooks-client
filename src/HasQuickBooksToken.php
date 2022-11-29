@@ -2,14 +2,14 @@
 
 namespace Spinen\QuickBooks;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 trait HasQuickBooksToken
 {
     /**
      * Have a quickBooksToken.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function quickBooksToken()
+    public function quickBooksToken(): HasOne
     {
         return $this->hasOne(Token::class);
     }

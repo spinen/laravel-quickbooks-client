@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
  * Class TestCase
- *
- * @package Tests\Spinen\QuickBooks
  */
 abstract class TestCase extends PHPUnitTestCase
 {
@@ -23,63 +21,55 @@ abstract class TestCase extends PHPUnitTestCase
      *
      * @link https://gist.github.com/VladaHejda/8299871
      *
-     * @param MockInterface $mock
-     * @param array $items
-     *
      * @return void
      */
     protected function mockArrayIterator(MockInterface $mock, array $items)
     {
         if ($mock instanceof ArrayAccess) {
             foreach ($items as $key => $val) {
-                $mock->shouldReceive('offsetGet')
-                     ->with($key)
-                     ->andReturn($val);
+                $mock
+                    ->shouldReceive('offsetGet')
+                    ->with($key)
+                    ->andReturn($val);
 
-                $mock->shouldReceive('offsetExists')
-                     ->with($key)
-                     ->andReturn(true);
+                $mock
+                    ->shouldReceive('offsetExists')
+                    ->with($key)
+                    ->andReturn(true);
             }
 
-            $mock->shouldReceive('offsetExists')
-                 ->andReturn(false);
+            $mock->shouldReceive('offsetExists')->andReturn(false);
         }
 
         if ($mock instanceof Iterator) {
             $counter = 0;
 
-            $mock->shouldReceive('rewind')
-                 ->andReturnUsing(function () use (& $counter) {
-                     $counter = 0;
-                 });
+            $mock->shouldReceive('rewind')->andReturnUsing(function () use (&$counter) {
+                $counter = 0;
+            });
 
             $vals = array_values($items);
             $keys = array_values(array_keys($items));
 
-            $mock->shouldReceive('valid')
-                 ->andReturnUsing(function () use (& $counter, $vals) {
-                     return isset($vals[$counter]);
-                 });
+            $mock->shouldReceive('valid')->andReturnUsing(function () use (&$counter, $vals) {
+                return isset($vals[$counter]);
+            });
 
-            $mock->shouldReceive('current')
-                 ->andReturnUsing(function () use (& $counter, $vals) {
-                     return $vals[$counter];
-                 });
+            $mock->shouldReceive('current')->andReturnUsing(function () use (&$counter, $vals) {
+                return $vals[$counter];
+            });
 
-            $mock->shouldReceive('key')
-                 ->andReturnUsing(function () use (& $counter, $keys) {
-                     return $keys[$counter];
-                 });
+            $mock->shouldReceive('key')->andReturnUsing(function () use (&$counter, $keys) {
+                return $keys[$counter];
+            });
 
-            $mock->shouldReceive('next')
-                 ->andReturnUsing(function () use (& $counter) {
-                     ++$counter;
-                 });
+            $mock->shouldReceive('next')->andReturnUsing(function () use (&$counter) {
+                $counter++;
+            });
         }
 
         if ($mock instanceof Countable) {
-            $mock->shouldReceive('count')
-                 ->andReturn(count($items));
+            $mock->shouldReceive('count')->andReturn(count($items));
         }
     }
 }
