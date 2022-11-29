@@ -27,7 +27,7 @@ $ composer require spinen/laravel-quickbooks-client
 2. Run our migration to install the `quickbooks_tokens` table:
 
 ```bash
-$ php artisan migrate --package=spinen/laravel-quickbooks-client
+$ php artisan migrate
 ```
 
 The package uses the [auto registration feature](https://laravel.com/docs/packages#package-discovery) of Laravel.
@@ -44,8 +44,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasQuickBooksToken;
 ```
-    
-**NOTE: If your ```User``` model is not ```App/User```, then you will need to configure the path in the ```configs/quickbooks.php``` as documented below.**
+
+**NOTE: If your ```User``` model is not ```App\Models\User```, then you will need to configure the path in the ```configs/quickbooks.php```.**
 
 2. Add the appropriate values to your ```.env```
 
@@ -65,11 +65,11 @@ class User extends Authenticatable
 
     #### Config
     A configuration file named ```quickbooks.php``` can be published to ```config/``` by running...
-    
+
     ```bash
     php artisan vendor:publish --tag=quickbooks-config
     ```
-    
+
     #### Views
     View files can be published by running...
     
@@ -87,7 +87,7 @@ Here is an example of getting the company information from QuickBooks:
 php artisan tinker
 Psy Shell v0.8.17 (PHP 7.1.14 — cli) by Justin Hileman
 >>> Auth::logInUsingId(1)
-=> App\User {#1668
+=> App\Models\User {#1668
      id: 1,
      // Other keys removed for example
    }
