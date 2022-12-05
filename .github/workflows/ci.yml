@@ -37,7 +37,7 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: PHP Security Checker
-        uses: symfonycorp/security-checker-action@v2
+        uses: symfonycorp/security-checker-action@v5
         if: ${{ matrix.stability == 'prefer-stable' }}
 
       - name: Execute tests
