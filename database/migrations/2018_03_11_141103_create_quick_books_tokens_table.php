@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuickBooksTokensTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,10 @@ class CreateQuickBooksTokensTable extends Migration
     public function up()
     {
         Schema::create('quickbooks_tokens', function (Blueprint $table) {
-            $user_id_type = DB::getSchemaBuilder()
-                              ->getColumnType('users', 'id') === 'bigint' ? 'unsignedBigInteger' : 'unsignedInteger';
+            $user_id_type =
+                DB::getSchemaBuilder()->getColumnType('users', 'id') === 'bigint'
+                    ? 'unsignedBigInteger'
+                    : 'unsignedInteger';
 
             $table->bigIncrements('id');
             $table->{$user_id_type}('user_id');
@@ -28,10 +30,11 @@ class CreateQuickBooksTokensTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -44,4 +47,4 @@ class CreateQuickBooksTokensTable extends Migration
     {
         Schema::dropIfExists('quickbooks_tokens');
     }
-}
+};

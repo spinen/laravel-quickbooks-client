@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.2, 7.3, 7.4]
+        php: [8.0, 8.1]
         stability: [prefer-lowest, prefer-stable]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
@@ -20,6 +20,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          # Fetch 10 commits or Scrutinizer will throw ("Failed to retrieve commit parents. If you use a shallow git checkout, please checkout at least a depth of one."), see: RepositoryIntrospector at scrutinizer-ci/ocular GitHub repository
+          # 10 commits is an arbitrary value that is more than 1 commit
+          fetch-depth: 10
 
       - name: Cache dependencies
         uses: actions/cache@v1
@@ -37,11 +41,11 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-suggest
 
       - name: PHP Security Checker
-        uses: symfonycorp/security-checker-action@v2
+        uses: symfonycorp/security-checker-action@v5
         if: ${{ matrix.stability == 'prefer-stable' }}
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover=coverage.clover --verbose
 
       - name: Upload Code Coverage
-        run: wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+        run: vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
