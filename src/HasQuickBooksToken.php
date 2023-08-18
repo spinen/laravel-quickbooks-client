@@ -11,6 +11,7 @@ trait HasQuickBooksToken
      */
     public function quickBooksToken(): HasOne
     {
-        return $this->hasOne(Token::class);
+        $config = config('quickbooks.user');
+        return $this->hasOne(Token::class, $config['keys']['owner'], $config['keys']['foreign']);
     }
 }
