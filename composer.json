@@ -16,19 +16,19 @@
   ],
   "require": {
     "php": "^8.0.2",
-    "illuminate/database": "^9.19",
-    "illuminate/http": "^9.19",
-    "illuminate/routing": "^9.19",
-    "illuminate/support": "^9.19",
+    "illuminate/database": "^v10.19.0",
+    "illuminate/http": "^v10.19.0",
+    "illuminate/routing": "^v10.19.0",
+    "illuminate/support": "^v10.19.0",
     "nesbot/carbon": "^2.62.1",
-    "quickbooks/v3-php-sdk": "^5.4.6"
+    "quickbooks/v3-php-sdk": "^v6.1.2"
   },
   "require-dev": {
-    "laravel/pint": "^1.2",
-    "mockery/mockery": "^1.5.1",
-    "phpunit/phpunit": "^9.5.8",
-    "psy/psysh": "^0.11",
-    "scrutinizer/ocular": "^1.9"
+    "laravel/pint": "^v1.11.0",
+    "mockery/mockery": "^1.6.6",
+    "phpunit/phpunit": "^10.3.2",
+    "psy/psysh": "^v0.11.20",
+    "scrutinizer/ocular": "^1.8.1"
   },
   "autoload": {
     "psr-4": {
